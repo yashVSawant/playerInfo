@@ -24,3 +24,10 @@ body{
     display: flex;
     justify-content: space-between;
 }
+#right{
+    display: flex;
+    
+}
+#personalInfo{
+    width: 25%;
+}
