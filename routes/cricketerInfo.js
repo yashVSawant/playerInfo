@@ -8,4 +8,6 @@ route.get('/getInfo',controller.getInfo);
 
 route.post('/postInfo',controller.postInfo);
 
+route.put('/editInfo',controller.editInfo);
+
 module.exports = route;

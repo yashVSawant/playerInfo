@@ -1,10 +1,45 @@
 body{
     background-color: antiquewhite;
 }
+img{
+    width: 200px;
+}
+input{
+    margin:5px;
+    border-radius: 5px;
+    border: 1px solid antiquewhite ;
+    padding: 3px;
+    padding-right: 3px;
+    
+}
+textarea{
+    border-radius: 5px;
+}
+button{
+    border-radius: 5px;
+    width: 90px;
+    height: 30px;
+    background-color: rgb(85, 221, 192);
+}
+
+#edit{
+    background-color: rgb(226, 87, 87);
+}
+#search{
+    background-color:rgb(221, 160, 85);
+}
 #main{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+#form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(221, 160, 85);
+    padding: 20px;
+    border-radius: 20px;
 }
 #career{
     width: 400px;
@@ -12,22 +47,35 @@ body{
 }
 #second{
     height: 60px;
-    width: 100%;
-    background-color: rgb(223, 150, 54) ;
+    width: 90%;
+    background-color: rgb(216, 236, 98) ;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
     margin: 20px;
+    border-radius: 30px;
+    padding-right: 30px;
 }
-#left{
+#top{
     display: flex;
     justify-content: space-between;
 }
-#right{
+#bottom{
     display: flex;
     
 }
+#imageAndInfo{
+    /* border: 2px solid rgb(223, 150, 54); */
+    width: 25%;
+    padding: 20px;
+}
 #personalInfo{
     width: 25%;
+    padding: 20px;
+}
+#careerInfo{
+    border: 2px solid rgb(223, 150, 54);
+    width: 75%;
+    padding: 20px;
 }

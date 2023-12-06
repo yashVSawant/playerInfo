@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerInformation</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div id="container">
+        <div id="main">
+            <form id="form">
+                
+                <h2>Player Information</h2>
+                <lable>name :</lable>
+                <input type="text" id="name" name="name">
+                <lable>Date of Birth :</lable>
+                <input type="date" id="birthdate" name="birthdate">
+                <lable>Photo Url :</lable>
+                <input type="text" id="photoUrl" name="photo">
+                <lable>Birthplace :</lable>
+                <input type="text" id="birthplace" name="birthplace">
+                <lable>Career :</lable>
+                <textarea id="career" name="career"></textarea>
+                <lable>Number of Matches :</lable>
+                <input type="number" id="numOfMatch" name="numOfMatch">
+                <lable>Score :</lable>
+                <input type="number" id="score" name="score">
+                <lable>Fifties :</lable>
+                <input type="number" id="fifties" name="fifties">
+                <lable>Centuries :</lable>
+                <input type="number" id="centuries" name="centuries">
+                <lable>Wickets :</lable>
+                <input type="number" id="wickets" name="wicket">
+                <lable>Averages :</lable>
+                <input type="number" id="average" name="average">
+                
+                <button id="submit">submit</button>
+            </form>
+        </div>
+        <div id='second'>
+            <input type="text" id="searchPlayer">
+            <h4 id="errorMsg"></h4>
+            <button id="search">Search</button>
+            
+        </div>
+
+    </div>
+    <div id="showInfo" style="display: none;">
+        <div id="top">
+            <div id="imageAndInfo">
+                <img id="plImg"></img>
+                <h3 id="plName"></h3>
+                <p id="plBirthdate"></p>
+            </div>
+            <div>
+                <button id="edit" onclick="centerElement()">Edit</button>
+            </div>
+        </div>
+        <hr>
+        <div id="bottom">
+            <div id="personalInfo">
+                <h3>Personal Info :</h3>
+                <p id="plMatch"></p>
+                <p id="plRuns"></p>
+                <p id="plFifties"></p>
+                <p id="plCenturies"></p>
+                <p id="plAverage"></p>
+                <p id="plWickets"></p>
+            </div>
+            <div id="careerInfo">
+                <h3>Career :</h3>
+                <p id="plCareer"></p>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

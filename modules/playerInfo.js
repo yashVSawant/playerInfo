@@ -8,10 +8,10 @@ const Playerinfo = sequelize.define('Playerinfo',{
         allowNull:false,
         primaryKey:true
     },
-    birthdate:Sequelize.DATEONLY,
     photoUrl:Sequelize.STRING,
+    birthdate:Sequelize.DATEONLY,
     birthplace:Sequelize.STRING,
-    career:Sequelize.STRING,
+    career:Sequelize.TEXT,
     numOfMatch:Sequelize.INTEGER,
     score:Sequelize.INTEGER,
     fifties:Sequelize.INTEGER,

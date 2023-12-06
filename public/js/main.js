@@ -1,7 +1,7 @@
 const submit = document.getElementById('submit');
 const search = document.getElementById('search');
+const edit = document.getElementById('edit');
 
-submit.addEventListener('click',async()=>{
     const name = document.getElementById('name');
     const birthdate = document.getElementById('birthdate');
     const photoUrl = document.getElementById('photoUrl')
@@ -13,11 +13,24 @@ submit.addEventListener('click',async()=>{
     const centuries = document.getElementById('centuries')
     const wickets = document.getElementById('wickets')
     const average = document.getElementById('average')
+
+let isEditing = false;
+
+submit.addEventListener('click',async(e)=>{
+    e.preventDefault();
     const info ={'name':name.value ,'birthdate':birthdate.value ,'photoUrl':photoUrl.value ,'birthplace':birthplace.value ,'career':career.value ,'numOfMatch':numOfMatch.value ,'score':score.value ,'fifties':fifties.value ,'centuries':centuries.value ,'wickets':wickets.value ,'average':average.value};
     
     try{
-        const getPostInfo = await axios.post('http://localhost:3000/postInfo',{info});
-        console.log(getPostInfo);
+        if(!isEditing){
+            const getPostInfo = await axios.post('http://localhost:3000/postInfo',{info});
+            showInfoPage(getPostInfo.data)
+        }else{
+            const getPostInfo = await axios.put('http://localhost:3000/editInfo',{info});
+            isEditing = false;
+            showInfoPage(getPostInfo.data)
+        }
+        clearFields();
+        
     }catch(err){
         console.log(err);
     }  
@@ -25,15 +38,36 @@ submit.addEventListener('click',async()=>{
 
 search.addEventListener('click',async()=>{
     const player = document.getElementById('searchPlayer');
-    const name = player.value;
-    console.log(name);
+    const plName = player.value;
     try{
-        const getPlayer = await axios.get(`http://localhost:3000/getInfo?name=${name}`)
-        console.log(getPlayer.data);
-        showInfoPage(getPlayer.data);
+        const getPlayer = await axios.get(`http://localhost:3000/getInfo?name=${plName}`)
+        if(getPlayer.data){
+            showInfoPage(getPlayer.data);
+        }else{
+            const error = document.getElementById('errorMsg');
+            error.style.color='red'
+            error.innerText = 'player not found'
+            setTimeout(()=>{
+                error.innerText ="";
+            },2000)
+        }
+        
+        player.value="";
+        centerInfo();
     }catch(err){
         console.log(err)
     }
+})
+
+edit.addEventListener('click',async()=>{
+    const plname = document.getElementById('plName');
+    try{
+        const getEdit = await axios.get(`http://localhost:3000/getInfo?name=${plname.innerText}`);
+        fillToEdit(getEdit.data);
+    }catch(err){
+        console.log(err)
+    }
+    
 })
 
 function showInfoPage(data){
@@ -44,47 +78,85 @@ function showInfoPage(data){
 }
 
 function imageAndInfo(url,playerName,date){
-    const getDiv = document.getElementById('imageAndInfo');
-    const image = document.createElement('img');
-    const name = document.createElement('h3');
-    const birthdate = document.createElement('p');
-    const age =  new Date().getFullYear();
 
+    const image = document.getElementById('plImg');
+    const plName = document.getElementById('plName');
+    const birthdate = document.getElementById('plBirthdate');
+    const age =  new Date().getFullYear() - parseInt(date)
+    console.log(age)
+    
     image.src=url;
-    name.innerText=playerName;
-    birthdate.innerText=date;
-
-    getDiv.appendChild(image);
-    getDiv.appendChild(name);
-    getDiv.appendChild(birthdate);
-
+    plName.innerText=playerName;
+    birthdate.innerText=`${date}( age : ${age} )`;
 }
 
 function personalInfo(M,R,F,C,A,W,cR){
-    const getDiv = document.getElementById('personalInfo');
-    const careerDiv = document.getElementById('careerInfo');
+   
+    const matches = document.getElementById('plMatch');
+    const runs = document.getElementById('plRuns');
+    const fifties = document.getElementById('plFifties');
+    const centuries = document.getElementById('plCenturies');
+    const average = document.getElementById('plAverage');
+    const wickets = document.getElementById('plWickets');
+    const career = document.getElementById('plCareer');
 
-    const matches = document.createElement('p');
-    const runs = document.createElement('p');
-    const fifties = document.createElement('p');
-    const centuries = document.createElement('p');
-    const average = document.createElement('p');
-    const wickets = document.createElement('p');
-    const career = document.createElement('p');
     matches.innerText=`matches :${M}`;
     runs.innerText=`runs :${R}`;
     fifties.innerText=`fifties :${F}`;
     centuries.innerText=`centuries :${C}`;
     average.innerText=`average :${A}`;
     wickets.innerText=`wickets :${W}`;
-    career.innerText =cR
+    career.innerText =cR;
 
-    getDiv.appendChild(matches);
-    getDiv.appendChild(runs);
-    getDiv.appendChild(fifties);
-    getDiv.appendChild(centuries);
-    getDiv.appendChild(average);
-    getDiv.appendChild(wickets);
+}
 
-    careerDiv.appendChild(career);
+function fillToEdit(data){
+    isEditing = true;
+
+    name.value=data.name;
+    birthdate.value=data.birthdate;
+    photoUrl.value=data.photoUrl;
+    birthplace.value=data.birthplace;
+    career.value=data.career;
+    numOfMatch.value=data.numOfMatch;
+    score.value=data.score;
+    fifties.value=data.fifties;
+    centuries.value=data.centuries;
+    wickets.value=data.wickets;
+    average.value=data.average;
+}
+
+function clearFields(){
+
+    name.value='';
+    birthdate.value='';
+    photoUrl.value='';
+    birthplace.value='';
+    career.value='';
+    numOfMatch.value='';
+    score.value='';
+    fifties.value='';
+    centuries.value='';
+    wickets.value='';
+    average.value='';
+}
+
+function centerElement() {
+    const main = document.getElementById('main');
+    var scrollAmount = main.offsetTop - window.innerHeight / 2 + main.clientHeight / 2;
+
+    window.scrollTo({
+      top: scrollAmount,
+      behavior: "smooth" 
+    });
+}
+
+function centerInfo(){
+    const showInfo = document.getElementById('showInfo');
+    var scrollAmount = showInfo.offsetTop + showInfo.clientHeight / 2;
+
+    window.scrollTo({
+      top: scrollAmount,
+      behavior: "smooth" 
+    });
 }
